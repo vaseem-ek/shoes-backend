@@ -6,7 +6,7 @@ exports.savedShoes=async(req,res)=>{
     try {
         const existing=await saved.findOne({userId,shoeId})
         if(existing){
-            return res.status(401).json({success:true,message:"shoe already saved"})
+            return res.status(402).json({success:true,message:"shoe already saved"})
         }else{
             const newSaved=new saved({
                 shoeId,name,images:JSON.parse(images),description,userId
