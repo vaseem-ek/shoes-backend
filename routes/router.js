@@ -9,6 +9,7 @@ const router=express.Router()
 
 router.post('/reg',userController.registerUser)
 router.post('/log',userController.loginUser)
+router.get('/admin/allUser',jwtMiddle,userController.getAllUsers)
 
 
 //admin

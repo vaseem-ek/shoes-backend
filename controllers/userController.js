@@ -51,10 +51,20 @@ exports.loginUser = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: "Internal Server Error" });
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 
 }
 
-//admin Login
+//admin 
+
+exports.getAllUsers=async(req,res)=>{
+    try {
+        const result=await users.find()
+        return res.status(200).json({success:true,result})
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
 

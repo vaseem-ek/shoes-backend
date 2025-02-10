@@ -4,15 +4,18 @@ exports.savedShoes=async(req,res)=>{
     const userId=req.payload
     const {name,images,description,shoeId}=req.body
     try {
+        if(!userId){
+            return res.status(402).json({success:false,message:"user first log"})
+        }
         const existing=await saved.findOne({userId,shoeId})
         if(existing){
-            return res.status(402).json({success:true,message:"shoe already saved"})
+            return res.status(401).json({success:false,message:"shoe already saved"})
         }else{
             const newSaved=new saved({
                 shoeId,name,images:JSON.parse(images),description,userId
             })
             await newSaved.save()
-            return res.status(200).json({success:true,message:"shoes saved"})
+            return res.status(201).json({success:true,newSaved})
         }
         
     } catch (error) {
@@ -20,7 +23,6 @@ exports.savedShoes=async(req,res)=>{
         return res.status(500).json({success:false,message:"internal server error"})
     }
 }
-
 exports.getSavedShoe=async(req,res)=>{
     try {
         const userId=req.payload
